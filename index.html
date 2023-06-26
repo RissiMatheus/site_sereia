@@ -2501,6 +2501,16 @@ formCampos.forEach(function(campo) {
   });
 });
 
+form.addEventListener('DOMContentLoaded', function() {
+  gtag('event', 'visualizacao_formulario_contato', {
+    'event_category': 'Engajamento',
+    'event_label': 'Formulario de Contato'
+  });
+});
+
+// Adicionar o ouvinte de evento ao carregar o formulário
+form.addEventListener('DOMContentLoaded', rastrearVisualizacaoFormularioContato);
+
 // 6 Clicou nas opções do Meanu
 
   var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
