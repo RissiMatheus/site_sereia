@@ -2470,37 +2470,36 @@
        popup.observe(telefonePopUp);
 
 
-    // 4 e 5
+   // 4 e 5
 
-   var form = document.getElementById('contactForm');
-  var formCampos = form.querySelectorAll('input, textarea');
+ var form = document.getElementById('contactForm');
+var formCampos = form.querySelectorAll('input, textarea');
 
-  function verificarFormularioCompleto() {
-    var formCompleto = Array.from(formCampos).every(function(campo) {
-      return campo.value !== '';
+function verificarFormularioCompleto() {
+  var formCompleto = Array.from(formCampos).every(function(campo) {
+    return campo.value !== '';
   });
 
-    if (formCompleto) {
-      console.log('Preencheu todo o formulário');
+  if (formCompleto) {
+    console.log('Preencheu todo o formulário');
   }
 }
 
-  formCampos.forEach(function(campo) {
-    campo.addEventListener('change', function() {
-      console.log('Preencheu campo ' + campo.getAttribute('placeholder'));
+formCampos.forEach(function(campo) {
+  campo.addEventListener('change', function() {
+    console.log('Preencheu campo ' + campo.getAttribute('placeholder'));
 
-      if (campo.id === 'email' && campo.checkValidity()) {
-        console.log('Email válido');
+    if (campo.id === 'email' && campo.checkValidity()) {
+      console.log('Email válido');
     }
 
     verificarFormularioCompleto();
-
-      var form = document.getElementById('contactForm');
-form.addEventListener('DOMContentLoaded', function() {
- gtag('event', 'visualizacao_formulario_contato', { 
-'event_category': 'Engajamento', 
-'event_label': 'Formulario de Contato' });
   });
+});
+      form.addEventListener('DOMContentLoaded', function() {
+  gtag('event', 'visualizacao_formulario_contato', {
+    'event_category': 'Onboarding',
+    'event_label': 'Formulario de Contato'
   });
 });
 
