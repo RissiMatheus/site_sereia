@@ -2472,8 +2472,31 @@
 
    // 4 e 5
 
- var form = document.getElementById('contactForm');
+  var form = document.getElementById('contactForm');
 var formCampos = form.querySelectorAll('input, textarea');
+var inputsVisualizados = new Set();
+
+function rastrearVisualizacaoFormulario() {
+  if (!inputsVisualizados.size) {
+    // Chamar a função de rastreamento do GA4 para a visualização do formulário
+    gtag('event', 'visualizacao_formulario_contato', {
+      'event_category': 'Formulario de Contato',
+      'event_label': 'Visualizacao'
+    });
+  }
+}
+
+function rastrearInicioDigitacao(campo) {
+  if (!inputsVisualizados.has(campo.id)) {
+    inputsVisualizados.add(campo.id);
+
+    // Chamar a função de rastreamento do GA4 para o início de digitação no campo
+    gtag('event', 'inicio_digitacao', {
+      'event_category': 'Formulario de Contato',
+      'event_label': campo.getAttribute('placeholder')
+    });
+  }
+}
 
 function verificarFormularioCompleto() {
   var formCompleto = Array.from(formCampos).every(function(campo) {
@@ -2486,6 +2509,10 @@ function verificarFormularioCompleto() {
 }
 
 formCampos.forEach(function(campo) {
+  campo.addEventListener('focus', function() {
+    rastrearInicioDigitacao(campo);
+  });
+
   campo.addEventListener('change', function() {
     console.log('Preencheu campo ' + campo.getAttribute('placeholder'));
 
@@ -2496,7 +2523,10 @@ formCampos.forEach(function(campo) {
     verificarFormularioCompleto();
   });
 });
-      
+
+document.addEventListener('DOMContentLoaded', function() {
+  rastrearVisualizacaoFormulario();
+});
 
   // 6 Clicou nas opções do Menu
 
