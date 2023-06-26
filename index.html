@@ -2450,7 +2450,10 @@
       //2 faça um orçamento
       var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
       orcamento.addEventListener('click', function () {
-      console.log('Clicou em FAÇA UM ORÇAMENTO')
+      gtag('event', 'click-orcamento', {
+      'event_category': 'Engajamento',
+      'event_label': 'Clicou em orçamento'
+      });
     });
       
       
