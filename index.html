@@ -2450,7 +2450,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       window.addEventListener('scroll', function() {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        console.log('Rolou até o final');
+       gtag('event', 'rolagem_final', {
+      'event_category': 'Engajamento',
+      'event_label': 'Rolagem até o final'
+      });
       }
     });
 
@@ -2521,10 +2524,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       //Aprendendo GA
 
-      gtag('event', 'screen_view', {
-        'app_name': 'myAppName',
-        'screen_name': 'Home'
-      });
+    
 
     </script>
   </body>
