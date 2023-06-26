@@ -2437,66 +2437,47 @@
       }, 5000);
       
       //1 imprimindo se o usuário rolou até o final
-
       window.addEventListener('scroll', function() {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-       gtag('event', 'rolagem_final', {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    gtag('event', 'Rolagem até o final', {
       'event_category': 'Engajamento',
       'event_label': 'Rolagem até o final'
-      });
-      }
     });
+  }
+});
 
-      //2 faça um orçamento
+
+//2 faça um orçamento
       var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
-      orcamento.addEventListener('click', function () {
-      gtag('event', 'click-orcamento', {
+orcamento.addEventListener('click', function () {
+  gtag('event', 'Clicou em orçamento', {
+    'event_category': 'Engajamento',
+    'event_label': 'Clicou em orçamento'
+  });
+});
+
+
+//3 POPUP
+
+   var telefonePopUp = document.querySelector('#call-me-baby');
+
+var popup = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) {
+    gtag('event', 'Visualizou FALE COM UM ATENDENTE', {
       'event_category': 'Engajamento',
-      'event_label': 'Clicou em orçamento'
-      });
+      'event_label': 'Visualizou FALE COM UM ATENDENTE'
     });
-      
-      
-    //3 POPUP
+  }
+});
 
-    var telefonePopUp = document.querySelector('#call-me-baby');
-
-    var popup = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) {
-        console.log('Visualizou FALE COM UM ATENDENTE');
-    }
-     });
-    ; 
-       popup.observe(telefonePopUp);
+popup.observe(telefonePopUp);
 
 
-   // 4 e 5
 
-  var form = document.getElementById('contactForm');
+// 4 e 5
+
+ var form = document.getElementById('contactForm');
 var formCampos = form.querySelectorAll('input, textarea');
-var inputsVisualizados = new Set();
-
-function rastrearVisualizacaoFormulario() {
-  if (!inputsVisualizados.size) {
-    // Chamar a função de rastreamento do GA4 para a visualização do formulário
-    gtag('event', 'visualizacao_formulario_contato', {
-      'event_category': 'Formulario de Contato',
-      'event_label': 'Visualizacao'
-    });
-  }
-}
-
-function rastrearInicioDigitacao(campo) {
-  if (!inputsVisualizados.has(campo.id)) {
-    inputsVisualizados.add(campo.id);
-
-    // Chamar a função de rastreamento do GA4 para o início de digitação no campo
-    gtag('event', 'inicio_digitacao', {
-      'event_category': 'Formulario de Contato',
-      'event_label': campo.getAttribute('placeholder')
-    });
-  }
-}
 
 function verificarFormularioCompleto() {
   var formCompleto = Array.from(formCampos).every(function(campo) {
@@ -2509,10 +2490,6 @@ function verificarFormularioCompleto() {
 }
 
 formCampos.forEach(function(campo) {
-  campo.addEventListener('focus', function() {
-    rastrearInicioDigitacao(campo);
-  });
-
   campo.addEventListener('change', function() {
     console.log('Preencheu campo ' + campo.getAttribute('placeholder'));
 
@@ -2524,20 +2501,16 @@ formCampos.forEach(function(campo) {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  rastrearVisualizacaoFormulario();
-});
-
-  // 6 Clicou nas opções do Menu
+// 6 Clicou nas opções do Meanu
 
   var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
-  menuOptions.forEach(function (option) {
-    option.addEventListener('click', function () {
-      console.log('Clicou no menu ' + option.innerText);
+menuOptions.forEach(function (option) {
+  option.addEventListener('click', function () {
+    console.log('Clicou no menu ' + option.innerText);
   });
 });
 
-  // 7 Visualizar banheiro
+// 7 Visualizar banheiro
 
   var banheiroImg = document.querySelector('#about img');
   var banheiroObserver = new IntersectionObserver(function (entries) {
@@ -2547,7 +2520,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   banheiroObserver.observe(banheiroImg)
 
-      //Aprendendo GA
+
 
     
 
