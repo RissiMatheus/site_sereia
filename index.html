@@ -2494,6 +2494,13 @@
     }
 
     verificarFormularioCompleto();
+
+      var form = document.getElementById('contactForm');
+form.addEventListener('DOMContentLoaded', function() {
+ gtag('event', 'visualizacao_formulario_contato', { 
+'event_category': 'Engajamento', 
+'event_label': 'Formulario de Contato' });
+  });
   });
 });
 
