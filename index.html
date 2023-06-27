@@ -2436,33 +2436,30 @@
         });
       }, 5000);
       
-      //1 imprimindo se o usuário rolou até o final
+     //1 imprimindo se o usuário rolou até o final
       window.addEventListener('scroll', function() {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    gtag('event', 'scrolled_to_end', {});
-  }
-});
-
-
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        console.log('Rolou até o final');
+      }
+    });
 
 //2 faça um orçamento
-     var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
-orcamento.addEventListener('click', function () {
-  gtag('event', 'Clicou em orçamento', {});
-});
-
+      var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
+    orcamento.addEventListener('click', function () {
+      console.log('Clicou em FAÇA UM ORÇAMENTO')
+    });
 
 //3 POPUP
 
-  var telefonePopUp = document.querySelector('#call-me-baby');
+   var telefonePopUp = document.querySelector('#call-me-baby');
 
-var popup = new IntersectionObserver(function(entries) {
-  if (entries[0].isIntersecting) {
-    gtag('event', 'view_popup', { });
-  }
-});
-
-popup.observe(telefonePopUp);
+    var popup = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        console.log('Visualizou FALE COM UM ATENDENTE');
+    }
+     });
+    ; 
+       popup.observe(telefonePopUp);
 
 
 // 4 e 5
@@ -2492,15 +2489,6 @@ formCampos.forEach(function(campo) {
   });
 });
 
-form.addEventListener('DOMContentLoaded', function() {
-  gtag('event', 'visualizacao_formulario_contato', {
-    'event_category': 'Engajamento',
-    'event_label': 'Formulario de Contato'
-  });
-});
-
-
-
 // 6 Clicou nas opções do Meanu
 
   var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
@@ -2519,6 +2507,46 @@ menuOptions.forEach(function (option) {
     }
   });
   banheiroObserver.observe(banheiroImg)
+
+//exercicios GA
+
+      //Quantos rolaram a página até o final?
+
+window.addEventListener('scroll', function() {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    gtag('event', 'scrolled_to_end', {});
+  }
+});
+
+      //Clicou no botão orçamento: 
+
+var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
+orcamento.addEventListener('click', function () {
+  gtag('event', 'click_on_budget', {});
+});
+
+      //O pop-up com o telefone apareceu na página? Note que ele aparecer na página não configura uma não-rejeição do usuário.
+
+var telefonePopUp = document.querySelector('#call-me-baby');
+
+var popup = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) {
+    gtag('event', 'view_popup', { });
+  }
+});
+
+popup.observe(telefonePopUp);
+
+      //Quantos visualizaram o formulário de contato?
+
+var form = document.getElementById('contactForm');
+
+   var formObserver = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+    	gtag('event', 'view_form', { });
+    }
+  });
+  formObserver.observe(form)
 
 
 
