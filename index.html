@@ -2583,7 +2583,14 @@ menuOptions.forEach(function(option) {
       gtag('event', 'stayed_one_minute', {})
     }, 60000)
 
-    
+    //Quantos enviaram o formulário de contato? Foi com sucesso ou falha?
+      var form = document.getElementById('contactForm');
+      var submitButton = form.querySelector('.btn.btn-xl');
+
+        submitButton.addEventListener('click', function() {
+        gtag('event', 'form_submit', {});
+      });
+
 
     </script>
   </body>
