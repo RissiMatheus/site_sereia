@@ -2552,12 +2552,16 @@ var form = document.getElementById('contactForm');
 
  var form = document.getElementById('contactForm');
 var formCampos = form.querySelectorAll('input, textarea');
+var primeiroCampoPreenchido = false;
 
 formCampos.forEach(function(campo) {
-  campo.addEventListener('focus', function() {
-    gtag('event', 'input_start_form', {
-      'input_name_start': campo.id
-    });
+  campo.addEventListener('mousedown', function() {
+    if (!primeiroCampoPreenchido) {
+      gtag('event', 'input_start_form', {
+        'input_start_name': campo.id
+      });
+      primeiroCampoPreenchido = true;
+    }
   });
 });
 
