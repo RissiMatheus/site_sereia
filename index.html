@@ -2577,6 +2577,11 @@ menuOptions.forEach(function(option) {
   });
 });
 
+      // Quantos ficaram pelo menos 1 minuto no seu site?
+    setTimeout(() => {
+      gtag('event', 'stayed_one_minute', {})
+    }, 60000)
+
     
 
     </script>
