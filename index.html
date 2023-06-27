@@ -2555,13 +2555,17 @@ var formCampos = form.querySelectorAll('input, textarea');
 var primeiroCampoPreenchido = false;
 
 formCampos.forEach(function(campo) {
-  campo.addEventListener('mousedown', function() {
+  campo.addEventListener('mousedown', function CampoPreenchido(event) {
     if (!primeiroCampoPreenchido) {
       gtag('event', 'input_start_form', {
-        'input_start_name': campo.id
+        'input_start_name': event.target.id
       });
       primeiroCampoPreenchido = true;
     }
+
+    formCampos.forEach(function(campo) {
+      campo.removeEventListener('mousedown', CampoPreenchido);
+    });
   });
 });
 
