@@ -2556,7 +2556,7 @@ var formCampos = form.querySelectorAll('input, textarea');
 formCampos.forEach(function(campo) {
   campo.addEventListener('focus', function() {
     gtag('event', 'input_start_form', {
-      'input_name_start': campo.getAttribute('placeholder')
+      'input_name_start': campo.id
     });
   });
 });
