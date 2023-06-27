@@ -2439,12 +2439,10 @@
       //1 imprimindo se o usuário rolou até o final
       window.addEventListener('scroll', function() {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    gtag('event', 'Rolagem até o final', {
-      'event_category': 'Engajamento',
-      'event_label': 'Rolagem até o final'
-    });
+    gtag('event', 'scrolled_to_end', {});
   }
 });
+
 
 
 //2 faça um orçamento
@@ -2459,19 +2457,15 @@ orcamento.addEventListener('click', function () {
 
 //3 POPUP
 
-   var telefonePopUp = document.querySelector('#call-me-baby');
+  var telefonePopUp = document.querySelector('#call-me-baby');
 
 var popup = new IntersectionObserver(function(entries) {
   if (entries[0].isIntersecting) {
-    gtag('event', 'Visualizou FALE COM UM ATENDENTE', {
-      'event_category': 'Engajamento',
-      'event_label': 'Visualizou FALE COM UM ATENDENTE'
-    });
+    gtag('event', 'view_popup', { });
   }
 });
 
 popup.observe(telefonePopUp);
-
 
 
 // 4 e 5
