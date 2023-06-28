@@ -2596,26 +2596,36 @@ formCampos.forEach(function(campo) {
       //Quantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
 
        var teamSocialLinks = document.querySelectorAll('.team-member .social-buttons a');
-      var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
+var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
 
-      teamSocialLinks.forEach(function (link) {
-      link.addEventListener('click', function (event) {
-      
-      var url = link.href;
-      var isInternal = link.hostname === window.location.hostname;
-      gtag('event', 'click_media', {
-      'media_type': 'dev',
-          });
-
-    footerSocialLinks.forEach(function (link) {
-    link.addEventListener('click', function (event) {
-    
+teamSocialLinks.forEach(function (link) {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
     var url = link.href;
     var isInternal = link.hostname === window.location.hostname;
 
-       gtag('event', 'click_media', {
-      'media_type': 'site',
-          });
+    // Registrar evento utilizando gtag
+    gtag('event', 'click_media', {
+      'media_url': url,
+      'media_type': 'team-member',
+      'media_source': isInternal ? 'Próprio site' : 'Site externo'
+    });
+
+   
+footerSocialLinks.forEach(function (link) {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
+    var url = link.href;
+    var isInternal = link.hostname === window.location.hostname;
+
+    // Registrar evento utilizando gtag
+    gtag('event', 'click_media', {
+      'media_url': url,
+      'media_type': 'footer',
+      'media_source': isInternal ? 'Próprio site' : 'Site externo'
+    });
+
+
 
 
 
