@@ -2571,17 +2571,15 @@ formCampos.forEach(function(campo) {
 
       //Quantas pessoas interagiram com o menu superior?
 
-var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
+  var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
 
-menuOptions.forEach(function(option) {
+  menuOptions.forEach(function(option) {
   option.addEventListener('click', function() {
     gtag('event', 'menu_itens', {
       'menu_click': option.innerText
     });
   });
 });
-
-
       // Quantos ficaram pelo menos 1 minuto no seu site?
     setTimeout(() => {
       gtag('event', 'stayed_one_minute', {})
@@ -2594,6 +2592,28 @@ menuOptions.forEach(function(option) {
         submitButton.addEventListener('click', function() {
         gtag('event', 'form_submit', {});
       });
+
+      //Quantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
+
+      var socialLinks = document.querySelectorAll('.social-buttons a');
+
+      socialLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      var url = link.href;
+
+      var isInternal = link.hostname === window.location.hostname;
+
+    // Enviar os dados para o Google Analytics usando gtag.js
+    gtag('event', 'button_media_click', {
+      'media_click': 'social_media',
+      'inner_or_outer_click': isInternal ? 'Próprio site' : 'Site externo'
+    });
+    
+  });
+});
+
 
 
     </script>
