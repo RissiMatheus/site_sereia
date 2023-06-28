@@ -2512,11 +2512,14 @@ menuOptions.forEach(function (option) {
 
       //Quantos rolaram a página até o final?
 
-window.addEventListener('scroll', function() {
+var scrollFunctionCallback = function() {
   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
     gtag('event', 'scrolled_to_end', {});
   }
-});
+};
+
+window.addEventListener('scroll', scrollFunctionCallback);
+window.removeEventListener('scroll', scrollFunctionCallback);
 
       //Clicou no botão orçamento: 
 
@@ -2525,37 +2528,27 @@ orcamento.addEventListener('click', function () {
   gtag('event', 'click_on_budget', {});
 });
 
-      //O pop-up com o telefone apareceu na página? Note que ele aparecer na página não configura uma não-rejeição do usuário.
-
-var telefonePopUp = document.querySelector('#call-me-baby');
-
-var popup = new IntersectionObserver(function(entries) {
-  if (entries[0].isIntersecting) {
-    gtag('event', 'view_popup', { });
-  }
-});
-
-popup.observe(telefonePopUp);
-
       //Quantos visualizaram o formulário de contato?
 
 var form = document.getElementById('contactForm');
 
-   var formObserver = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) {
-    	gtag('event', 'view_form', { });
-    }
-  });
-  formObserver.observe(form)
+var formObserver = new IntersectionObserver(function (entries) {
+  if (entries[0].isIntersecting) {
+    gtag('event', 'view_form', {});
+    formObserver.disconnect(); 
+  }
+});
 
-//Quantos começaram a preencher o formulário de contato e por qual input do formulário?
+formObserver.observe(form);
 
- var form = document.getElementById('contactForm');
+      //Quantos começaram a preencher o formulário de contato e por qual input do formulário?
+
+var form = document.getElementById('contactForm');
 var formCampos = form.querySelectorAll('input, textarea');
 var primeiroCampoPreenchido = false;
 
 formCampos.forEach(function(campo) {
-  campo.addEventListener('mousedown', function CampoPreenchido(event) {
+  campo.addEventListener('change', function CampoPreenchido(event) {
     if (!primeiroCampoPreenchido) {
       gtag('event', 'input_start_form', {
         'input_start_name': event.target.id
@@ -2564,10 +2557,25 @@ formCampos.forEach(function(campo) {
     }
 
     formCampos.forEach(function(campo) {
-      campo.removeEventListener('mousedown', CampoPreenchido);
+      campo.removeEventListener('change', CampoPreenchido);
     });
   });
 });
+
+
+//Quantos enviaram o formulário de contato? Foi com sucesso ou falha?
+
+var successObserver = new MutationObserver((e) => {
+      if (document.getElementById('success').hasChildNodes()) {
+        console.log(e[0].addedNodes[0].className)
+        gtag('event', 'form_submit', {
+          'form_successful': e[0].addedNodes[0].className === 'alert alert-success' ? true : false
+        })
+      }
+    });
+    successObserver.observe(document.getElementById("success"), {
+      childList: true,
+    });
 
       //Quantas pessoas interagiram com o menu superior?
 
@@ -2580,40 +2588,39 @@ formCampos.forEach(function(campo) {
     });
   });
 });
-      // Quantos ficaram pelo menos 1 minuto no seu site?
-    setTimeout(() => {
-      gtag('event', 'stayed_one_minute', {})
-    }, 60000)
+     
+      // Quantas pessoas interagiram com o menu superior?
+    var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
 
-    //Quantos enviaram o formulário de contato? Foi com sucesso ou falha?
-      var form = document.getElementById('contactForm');
-      var submitButton = form.querySelector('.btn.btn-xl');
+  menuOptions.forEach(function(option) {
+  option.addEventListener('click', function() {
+    gtag('event', 'menu_itens', {
+      'menu_click': option.innerText
+    });
+  });
+});
 
-        submitButton.addEventListener('click', function() {
-        gtag('event', 'form_submit', {});
-      });
+      
 
-      //Quantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
-
-     var teamSocialLinks = document.querySelectorAll('.team-member .social-buttons a');
+    //uantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
+    var teamSocialLinks = document.querySelectorAll('.team-member .social-buttons a');
     var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
 
       teamSocialLinks.forEach(function (link) {
       link.addEventListener('click', function (event) {
-    event.preventDefault();
-    var url = link.href;
-    var isInternal = link.hostname === window.location.hostname;
+      event.preventDefault();
+      var url = link.href;
+      var isInternal = link.hostname === window.location.hostname;
 
-    // Registrar evento utilizando gtag
-    gtag('event', 'click_social_media', {
+       gtag('event', 'click_social_media', {
       'click_media_value': url,
       'dev_or_website': 'Team Member'
         });
   });
 });
 
-  footerSocialLinks.forEach(function (link) {
-  link.addEventListener('click', function (event) {
+    footerSocialLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
     event.preventDefault();
     var url = link.href;
     var isInternal = link.hostname === window.location.hostname;
@@ -2624,6 +2631,25 @@ formCampos.forEach(function(campo) {
          });
   });
 });
+
+      //Quantos ficaram pelo menos 1 minuto no seu site?
+
+    setTimeout(() => {
+      gtag('event', 'stayed_one_minute', {})
+    }, 60000)
+
+      //O pop-up com o telefone apareceu na página?
+
+      var telefonePopUp = document.querySelector('#call-me-baby');
+
+      var popup = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+      gtag('event', 'view_popup', { });
+    }
+    });
+
+    popup.observe(telefonePopUp);
+
 
 
 
