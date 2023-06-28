@@ -2596,35 +2596,32 @@ formCampos.forEach(function(campo) {
       //Quantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
 
      var teamSocialLinks = document.querySelectorAll('.team-member .social-buttons a');
-var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
+    var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
 
-teamSocialLinks.forEach(function (link) {
-  link.addEventListener('click', function (event) {
+      teamSocialLinks.forEach(function (link) {
+      link.addEventListener('click', function (event) {
     event.preventDefault();
     var url = link.href;
     var isInternal = link.hostname === window.location.hostname;
 
     // Registrar evento utilizando gtag
-    gtag('event', 'click_media', {
-      'event_category': 'Social Link',
-      'event_label': 'Team Member',
-      'event_value': url
-    });
+    gtag('event', 'click_social_media', {
+      'click_media_value': url,
+      'dev_or_website': 'Team Member'
+        });
   });
 });
 
-footerSocialLinks.forEach(function (link) {
+  footerSocialLinks.forEach(function (link) {
   link.addEventListener('click', function (event) {
     event.preventDefault();
     var url = link.href;
     var isInternal = link.hostname === window.location.hostname;
 
-    // Registrar evento utilizando gtag
-    gtag('event', 'click_media', {
-      'event_category': 'Social Link',
-      'event_label': 'Footer',
-      'event_value': url
-    });
+      gtag('event', 'click_social_media', {
+      'click_media_value': url,
+      'dev_or_website': 'Website'
+         });
   });
 });
 
