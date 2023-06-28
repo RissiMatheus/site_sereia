@@ -2595,24 +2595,27 @@ formCampos.forEach(function(campo) {
 
       //Quantas pessoas clicaram nos links de mídias sociais? E qual foi a mídia? Foi do próprio site ou a de um dev?
 
-      var socialLinks = document.querySelectorAll('.social-buttons a');
+       var teamSocialLinks = document.querySelectorAll('.team-member .social-buttons a');
+      var footerSocialLinks = document.querySelectorAll('footer .social-buttons a');
 
-      socialLinks.forEach(function(link) {
-      link.addEventListener('click', function(event) {
-      event.preventDefault();
-
+      teamSocialLinks.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+      
       var url = link.href;
-
       var isInternal = link.hostname === window.location.hostname;
+      gtag('event', 'click_media', {
+      'media_type': 'dev',
+          });
 
-    // Enviar os dados para o Google Analytics usando gtag.js
-    gtag('event', 'button_media_click', {
-      'media_click': 'social_media',
-      'inner_or_outer_click': isInternal ? 'Próprio site' : 'Site externo'
-    });
+    footerSocialLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
     
-  });
-});
+    var url = link.href;
+    var isInternal = link.hostname === window.location.hostname;
+
+       gtag('event', 'click_media', {
+      'media_type': 'site',
+          });
 
 
 
