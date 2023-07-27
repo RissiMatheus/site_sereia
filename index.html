@@ -2436,78 +2436,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         });
       }, 5000);
       
-     //1 imprimindo se o usuário rolou até o final
-      window.addEventListener('scroll', function() {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        console.log('Rolou até o final');
-      }
-    });
-
-//2 faça um orçamento
-      var orcamento = document.querySelector('a.page-scroll.btn.btn-xl')
-    orcamento.addEventListener('click', function () {
-      console.log('Clicou em FAÇA UM ORÇAMENTO')
-    });
-
-//3 POPUP
-
-   var telefonePopUp = document.querySelector('#call-me-baby');
-
-    var popup = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) {
-        console.log('Visualizou FALE COM UM ATENDENTE');
-    }
-     });
-    ; 
-       popup.observe(telefonePopUp);
-
-
-// 4 e 5
-
- var form = document.getElementById('contactForm');
-var formCampos = form.querySelectorAll('input, textarea');
-
-function verificarFormularioCompleto() {
-  var formCompleto = Array.from(formCampos).every(function(campo) {
-    return campo.value !== '';
-  });
-
-  if (formCompleto) {
-    console.log('Preencheu todo o formulário');
-  }
-}
-
-formCampos.forEach(function(campo) {
-  campo.addEventListener('change', function() {
-    console.log('Preencheu campo ' + campo.getAttribute('placeholder'));
-
-    if (campo.id === 'email' && campo.checkValidity()) {
-      console.log('Email válido');
-    }
-
-    verificarFormularioCompleto();
-  });
-});
-
-// 6 Clicou nas opções do Menu
-
-  var menuOptions = document.querySelectorAll('ul.nav.navbar-nav.navbar-right > li');
-menuOptions.forEach(function (option) {
-  option.addEventListener('click', function () {
-    console.log('Clicou no menu ' + option.innerText);
-  });
-});
-
-// 7 Visualizar banheiro
-
-  var banheiroImg = document.querySelector('#about img');
-  var banheiroObserver = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) {
-    console.log('Visualizou o banheiro');
-    }
-  });
-  banheiroObserver.observe(banheiroImg)
-
+   
 
 
 
